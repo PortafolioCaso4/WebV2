@@ -4473,6 +4473,7 @@ body {
   margin-bottom: 1.6rem;
   overflow: hidden;
   border-radius: 50%;
+
 }
 .cid-qAwiynApPQ .mbr-testimonial .card-block .testimonial-photo img {
   width: 100%;
@@ -4575,8 +4576,8 @@ body {
   text-align: right;
 }
 .cid-qAe7A3sTit {
-  padding-top: 90px;
-  padding-bottom: 90px;
+  padding-top: 200px;
+  padding-bottom: 200px;
   background-image: url("../../../assets/images/mbr-721x1080.jpg");
 }
 .cid-qAe7A3sTit .title {
