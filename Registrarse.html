@@ -117,12 +117,15 @@
                         <input type="password" class="form-control px-3" name="password" data-form-field="password" placeholder="Contraseña" required="" id="password">
                     </div>
                 </div>
+
                 <div data-for="rol">
                     <div class="form-group">
-                        <input type="text" class="form-control px-3" name="rol_id" data-form-field="rol_id" placeholder="1 o 3" id="rol_id" value="1">
+                        <input type="text" class="form-control px-3" name="rol_id" data-form-field="rol_id" placeholder="1: Apoderado o 3: Representante " id="rol_id" required maxlength="1" >
                         <!-- representante curso: 3 apoderado: 1 -->
                     </div>
                 </div>
+
+
 
                 <span class="input-group-btn">
                     <button href="" type="submit" class="btn btn-secondary btn-form display-4">Enviar formulario</button>
