@@ -77,8 +77,7 @@
             <div class="media-container-column col-lg-8" data-form-type="formoid">
                     <!--<div data-form-alert="" hidden="">Datos ingresados correctamente</div>-->
 
-                        <form class="mbr-form" action="landingUser.html" method="post" data-form-title="Formulario login">
-
+                    <form class="mbr-form" action="landingUser.html" method="post" data-form-title="Formulario login">
                         <div class="row row-sm-offset">
                             <div class="col-md-8 multi-horizontal" data-for="name">
                                 <div class="form-group">
@@ -96,7 +95,7 @@
 
                         </div>
 
-                        <span class="input-group-btn"><button class="btn btn-primary btn-form display-4">Iniciar sesión</button></span>
+                        <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-form display-4">Iniciar sesión</button></span>
                     </form>
             </div>
         </div>
@@ -145,6 +144,66 @@
   <script src="assets/smooth-scroll/smooth-scroll.js"></script>
   <script src="assets/dropdown/js/script.min.js"></script>
   <script src="assets/theme/js/script.js"></script>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+
+          $('#linkClose').click(function () {
+              $('#divError').hide('fade');
+          });
+
+          $('#btnLogin').click(function () {
+              $.ajax({
+
+                  url: 'https://thawing-forest-71712.herokuapp.com/api/iniciar',
+                  method: 'POST',
+                  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                  dataType: "json",
+                  data: {
+                      email: $('#email').val(),
+                      password: $('#password').val()
+
+                  },
+                  // si se completa exitosamente guarda el token en el navegador y redireciona
+                  // a Data.html
+                  success: function (response) {
+
+                      console.log(response.cuenta_id);
+                      Cookies.set('cuenta_id', response.cuenta_id);
+                      var cuentaPaso = response.cuenta_id;
+                      $.ajax({
+                          url: 'https://thawing-forest-71712.herokuapp.com/api/cuentas/'+cuentaPaso+'/alumnos',
+                          method: 'GET',
+                          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                          success: function (response2) {
+                              Cookies.set('alumnos', response2);
+                              console.log(response2);
+                              window.location.href = "Data.html";
+                          }
+                      });
+
+
+                      console.log(Cookies.get('cuenta_id'));
+                      sessionStorage.setItem("accessToken", response.access_token);
+
+                      console.log(response.access_token);
+                  },
+                  // para error de display
+                  error: function (jqXHR) {
+                      alertify
+                          .alert("OOPS HA OCURRIDO UN ERROR ", function () {
+                              alertify.message('OK');
+                          });
+                      $('#divError').show('fade');
+                      console.log(jqXHR);
+                      console.log($('#txtEmail').val());
+                      console.log($('#txtPassword').val());
+                  }
+              });
+          });
+      });
+  </script>
 
 </body>
 </html>
