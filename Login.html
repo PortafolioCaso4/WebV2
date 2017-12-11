@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/mbr-additional.css" rel="stylesheet"  />
+    <link rel="shortcut icon" href="assets/images/masgrande-244x242.png" type="image/x-icon">
+    <link href="Content/mobirise-icons/mobirise-icons.css" rel="stylesheet" />
+    <link href="Content/mobirise-icons-bold/mobirise-icons-bold.css" rel="stylesheet" />
+    <link href="Content/tether/tether.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-grid.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-reboot.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+</head>
+
+<body>
+
+    <!--Navbar-->
+    <section class="menu cid-qzhaUL7C2j" once="menu" id="menu1-m" data-rv-view="291">
+        <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="menu-logo">
+                <div class="navbar-brand">
+                    <span class="navbar-logo">
+                        <a href="index.html">
+                            <img src="assets/images/masgrande-244x242.png" alt="Mobirise" title="" media-simple="true" style="height: 3.8rem;">
+                        </a>
+                    </span>
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-4" href="#top"></a></span>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-white display-4" href=""></a></li></ul>
+                <div class="navbar-buttons mbr-section-btn">
+                    <a class="btn btn-sm btn-secondary display-7" href="index.html"><span class="mbrib-home mbr-iconfont mbr-iconfont-btn"></span></a> <a class="btn btn-sm btn-white-outline display-7" href="index.html#features13-b">
+                        Destinos
+                    </a>    <a class="btn btn-sm btn-white-outline display-7" href="index.html#features14-1m">
+                        Servicios
+                    </a>   <a class="btn btn-sm btn-white-outline display-7" href="index.html#features11-1c">Sobre nosotros</a>  <a class="btn btn-sm btn-white-outline display-7" href="Contacto.html">Contacto</a> <a class="btn btn-sm btn-secondary display-7" href="Login.html"><span class="mbri-user mbr-iconfont mbr-iconfont-btn"></span>Login</a>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <!--End navbar-->
+
+    
+    
+            <div class="col-md-10 col-md-offset-1">
+            <div class="well">
+
+                <!--captura de login-->
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr class="success">
+                            <th colspan="2">  
+                             Inicie sesión                          
+                             
+                             <a href="index.html" class="btn btn-md btn-secondary-outline pull-right" style="float: right" role="button">Volver a inicio</a>
+                            </th>                            
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <input type="text" id="txtEmail" placeholder="Email" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>
+                                <input type="password" id="txtPassword"
+                                       placeholder="Contraseña" />
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td colspan="2">
+                                <input id="btnLogin" class="btn btn-md btn-secondary display-4" type="button"
+                                       value="Login" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--Bootstrap alert para mensaje de fallo-->
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" href="#" class="close">&times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+        </div>
+ 
+
+        <script src="Scripts/jquery-1.10.2.min.js"></script>
+        <script>
+        function goBack() {
+            window.history.back();
+        }
+        </script>
+            <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#linkClose').click(function () {
+                    $('#divError').hide('fade');
+                });
+
+                $('#btnLogin').click(function () {
+                    $.ajax({
+
+                        url: 'https://thawing-forest-71712.herokuapp.com/api/iniciar',
+                        method: 'POST',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: "json",
+                        data: {
+                            email: $('#txtEmail').val(),
+                            password: $('#txtPassword').val()
+
+                        },
+                        // si se completa exitosamente guarda el token en el navegador y redireciona
+                        // a Data.html
+                        success: function (response) {
+
+
+                            console.log(response.cuenta_id);
+                            Cookies.set('cuenta_id', response.cuenta_id);
+                            var cuentaPaso = response.cuenta_id;
+                            $.ajax({
+                                url: 'https://thawing-forest-71712.herokuapp.com/api/cuentas/' + cuentaPaso + '/alumnos',
+                                method: 'GET',
+                                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+                                success: function (response2) {
+                                    Cookies.set('alumnos', response2);
+                                    console.log(response2);
+                                    window.location.href = "Data.html";
+                                }
+                            });
+
+
+                            console.log(Cookies.get('cuenta_id'));
+                            sessionStorage.setItem("accessToken", response.access_token);
+
+
+
+                            console.log(response.access_token);
+                        },
+                        // para error de display
+                        error: function (jqXHR) {
+                            alertify
+                                .alert("OOPS HA OCURRIDO UN ERROR ", function () {
+                                    alertify.message('OK');
+                                });
+                            $('#divError').show('fade');
+                            console.log(jqXHR);
+                            console.log($('#txtEmail').val());
+                            console.log($('#txtPassword').val());
+                        }
+                    });
+                });
+            });
+        </script>
+
+</body>
+</html>

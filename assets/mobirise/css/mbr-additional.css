@@ -5,8 +5,8 @@
 
 
 body {
-  font-style: normal;
-  line-height: 1.5;
+    font-style: normal;
+    line-height: 1.5;
 }
 .mbr-section-title {
   font-style: normal;
@@ -4578,7 +4578,8 @@ body {
 .cid-qAe7A3sTit {
   padding-top: 200px;
   padding-bottom: 200px;
-  background-image: url("../../../assets/images/mbr-721x1080.jpg");
+  background-image: url("../../assets/images/mbr-721x1080.jpg");
+  background-image: url("\WebOnTour\WebOnT\assets\images");
 }
 .cid-qAe7A3sTit .title {
   margin-bottom: 2rem;
